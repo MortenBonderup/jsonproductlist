@@ -2,15 +2,18 @@ fetch('products.json')
     .then(response => response.json())
     .then(products => {
         const productList = document.getElementById('product-list');
+        let htmlContent = '';
+
         products.forEach(product => {
-            const productDiv = document.createElement('div');
-            productDiv.className = 'product';
-            productDiv.innerHTML = `
-                <h2>${product.name}</h2>
-                <p>${product.description}</p>
-                <p class="price">$${product.price.toFixed(2)}</p>
+            htmlContent += `
+                <div class="product">
+                    <h2>${product.name}</h2>
+                    <p>${product.description}</p>
+                    <p class="price">$${product.price.toFixed(2)}</p>
+                </div>
             `;
-            productList.appendChild(productDiv);
         });
+
+        productList.innerHTML = htmlContent;
     })
     .catch(error => console.error('Error loading products:', error));
